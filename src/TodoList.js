@@ -55,18 +55,26 @@ class TodoList extends Component {
 
     }
     //面向dom转向面向数据编程
+
+    //最外层div可用 React.Fragment替换 减少div层数
+
     render() {
+
+        const btnStyle = {
+            background:'orange',
+            color:'red'
+        }
         return (
             <div>
                 {/*<input  onChange={this.inputChange.bind(this)}/>*/}
                 <input value={this.state.inputValue} onChange={(e)=>this.inputChange(e)}/>
-                <button onClick={this.addComment.bind(this)}>留言</button>
+                <button style={btnStyle} onClick={this.addComment.bind(this)}>留言</button>
                 <ul>
                     {/*<li>oneninnini</li>*/}
                     {/*<li>twoninnini</li>*/}
                     {
                         this.state.list.map((item,index)=>{
-                            return <li key={index} onClick={this.delItem.bind(this,index)}>{item}</li>
+                            return <li key={index} onClick={()=>this.delItem(index)}>{item}</li>
                         })
                     }
 
