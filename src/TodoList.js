@@ -29,10 +29,30 @@ class TodoList extends Component {
 
     }
     inputChange(e){
-        console.log(e.target.value)
+        // console.log(e.target.value)
         this.setState({
             inputValue:e.target.value
         })
+    }
+    //使用箭头函数会造成多次渲染
+    // delItem = (index)=>{
+    //  return    console.log(index)
+    // }
+    delItem(index){
+        console.log(index);
+        const list = [...this.state.list]
+        list.splice(index,1)
+        this.setState({
+            // list:list   //健和值相同可以只写一个 ES6语法
+            list
+        })
+
+        // 此种写法不建议使用——方便以后工具调试方便，和框架
+        // this.state.list.splice(index,1)
+        // this.setState({
+        //     list:this.state.list
+        // })
+
     }
     //面向dom转向面向数据编程
     render() {
@@ -46,7 +66,7 @@ class TodoList extends Component {
                     {/*<li>twoninnini</li>*/}
                     {
                         this.state.list.map((item,index)=>{
-                            return <li key={index}>{item}</li>
+                            return <li key={index} onClick={this.delItem.bind(this,index)}>{item}</li>
                         })
                     }
 
